@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>motorlink — Pagos Pendientes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header>
+    <nav class="navbar">
+      <h2 class="logo">motor<span>link</span></h2>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="index.html#agendar">Agendar</a></li>
+        <li><a href="index.html#citas">Citas</a></li>
+        <li><a href="ordenes.html">Órdenes</a></li>
+        <li><a href="inventario.html">Inventario</a></li>
+        <li><a href="pagos.html" class="active">Pagos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main>
+
+    <!-- ENCABEZADO DE PÁGINA -->
+    <div class="page-header">
+      <div>
+        <h1>Pagos Pendientes</h1>
+        <p>Gestión de cobros y seguimiento de deudas activas</p>
+      </div>
+      <button class="btn-primary" id="btnAbrirModal">+ Registrar Pago</button>
+    </div>
+
+    <!-- ESTADÍSTICAS -->
+    <div class="stats-row">
+      <div class="stat-card warn">
+        <div class="stat-label">Vencidos</div>
+        <div class="stat-value red" id="stat-vencidos">—</div>
+        <div class="stat-sub">Requieren atención inmediata</div>
+      </div>
+      <div class="stat-card caution">
+        <div class="stat-label">Por Vencer</div>
+        <div class="stat-value yellow" id="stat-porvencer">—</div>
+        <div class="stat-sub">En los próximos 7 días</div>
+      </div>
+      <div class="stat-card total">
+        <div class="stat-label">Total Pendiente</div>
+        <div class="stat-value indigo" id="stat-total">—</div>
+        <div class="stat-sub">MXN a cobrar</div>
+      </div>
+      <div class="stat-card ok">
+        <div class="stat-label">Pagados este mes</div>
+        <div class="stat-value green">$14,200</div>
+        <div class="stat-sub">12 órdenes liquidadas</div>
+      </div>
+    </div>
+
+    <!-- FILTROS Y BÚSQUEDA -->
+    <div class="filters">
+      <button class="filter-btn active" data-filter="todos">Todos</button>
+      <button class="filter-btn" data-filter="vencido">Vencidos</button>
+      <button class="filter-btn" data-filter="parcial">Parcial</button>
+      <button class="filter-btn" data-filter="pendiente">Pendiente</button>
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Buscar cliente o servicio...">
+      </div>
+    </div>
+
+    <!-- TABLA -->
+    <div class="table-wrap">
+      <table id="paymentsTable">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Servicio</th>
+            <th>Monto</th>
+            <th>Estado</th>
+            <th>Fecha límite</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- MODAL: REGISTRAR PAGO -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Registrar Pago</h3>
+        <button class="close-btn" id="btnCerrarModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <label for="m-cliente">Cliente</label>
+        <input type="text" id="m-cliente" placeholder="Nombre del cliente">
+
+        <label for="m-tel">Teléfono</label>
+        <input type="text" id="m-tel" placeholder="+52 961 000 0000">
+
+        <label for="m-servicio">Servicio</label>
+        <input type="text" id="m-servicio" placeholder="Ej. Cambio de aceite">
+
+        <label for="m-monto">Monto total (MXN)</label>
+        <input type="number" id="m-monto" placeholder="0.00">
+
+        <label for="m-estado">Estado</label>
+        <select id="m-estado">
+          <option value="pendiente">Pendiente</option>
+          <option value="parcial">Pago Parcial</option>
+          <option value="vencido">Vencido</option>
+        </select>
+
+        <label for="m-fecha">Fecha límite</label>
+        <input type="date" id="m-fecha">
+      </div>
+      <div class="modal-footer">
+        <button class="btn-ghost" id="btnCancelar">Cancelar</button>
+        <button class="btn-primary" id="btnGuardar">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <footer>
+    <p>© 2026 motorlink — Sistema de Gestión para Talleres</p>
+  </footer>
+
+  <script src="js/pagos.js"></script>
+</body>
+</html>
